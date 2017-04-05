@@ -9,16 +9,18 @@
   };
   firebase.initializeApp(config);
 
-///////// my app stuff ///////
+///////// Global Variables  ///////
 
 var video = document.getElementById("video1");
 var commentMaster = [];
+const commentMenu = document.getElementById("comment-list");
+const testReadOut = document.getElementById("test");
 
 var tester = 5;
 
-// Import Admin SDK
+///// Reference to Firebase Database
 
-const dbRef = firebase.database().ref().child('comments');
+const dbRef = firebase.database().ref().child('comments-received');
 
 
 //listens time jumper.
@@ -37,6 +39,20 @@ document.getElementById("submit").addEventListener("click",addComment)
 var test = document.getElementsByClassName("read-out");
 
 //--------------------- functions --------------------------//
+
+window.onload = function(){ 
+		
+	dbRef.on("value", function(snapshot) {
+		printToDom(snapshot.val());
+  	//console.log(snapshot.val());
+			}, function (errorObject) {
+ 					 console.log("The read failed: " + errorObject.code);
+		});
+	
+	
+  //  dbRef.on('value',snap => { 
+	//		testReadOut.innerHTML = JSON.stringify(snap.val(), null, 3)});
+	}
 
 /// this function skips to the time entered. 
 function goTo(){
@@ -78,21 +94,14 @@ function addComment(){
 	+(today.getMonth()+1)+'-'
 	+today.getDate();;
 	
-	//writes to dom
-	/*document.getElementById("comment-list").innerHTML += 
-		"<div class='comment-box'>" 
-		+ time + "<p class='comment-time'> Video Time: " 
-		+ playerTime + "</p><br> Commnet: " 
-		+ userComment + "</div>";
-		*/
-	
 	
 	var newSubmit = new commentCreator(today, playerTime, userComment);
 	commentMaster.push(newSubmit);
 	
+	// send to database. 
 	dbRef.push(newSubmit);
 	
-	printToDom(commentMaster);
+	//printToDom(commentMaster);
 	//spitOutTestData();
 
 	
@@ -111,17 +120,32 @@ function commentCreator(name,date, pTime, comment) {
 }
 
 // ----- clears the comments then rewrites them from commnetMaster array ----//
-function printToDom (element){
+function printToDom (e){
 	document.getElementById("comment-list").innerHTML = "";
+
+	var printMe = Object.values(e);
 	
-	for (var i = 0; i < element.length; i++){
-		document.getElementById("comment-list").innerHTML += 
-			"<div class='comment-element' onclick='jumper("+element[i].markerAt +")'>" 
-			+ '<p> name: '+ element[i].name + ' : ' + element[i].markerAt + '<br/>'
-			+ element[i].comment + '</p>';
+	for (var i = 0; i < printMe.length; i++){
+		commentMenu.innerHTML += 
+			"<div class='comment-element' onclick='jumper("+printMe[i].markerAt +")'>" 
+			+ '<p> name: '+ printMe[i].name + ' : ' + printMe[i].markerAt + '<br/>'
+			+ printMe[i].comment + '</p>';
 
 	}
-
+	
+	
+	//console.log("printer run");
+	//console.log(e);
+	
+	/*for(var key in e){
+		var homeRow = e[key];
+		for (var prop in homeRow){
+			console.log(prop + ' = ' + homeRow[prop])
+		}
+	}*/
+	
+	
+	
 }// End print to DOM
 
 // ---- shuttle functions --- //
@@ -150,17 +174,23 @@ function jumper(e){
 	video.currentTime = e;
 }
 
+function clearComments(){
+	document.getElementById('add-comment').value = "";
+}
+
 //----- vomits out object data ---//
 function spitOutTestData(){
 		var x = JSON.stringify(commentMaster);
 	document.getElementById("test").innerHTML = x;
 }
 
+/*
 function checkForName (){
 	var checkName = document.getElementById("name").value;
 	if (checkName === ""){
 		alert("Name must be filled out");
     return false;
 	}
-	
-}
+	}
+*/	
+
