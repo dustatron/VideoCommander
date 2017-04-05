@@ -13,12 +13,7 @@
 <div class="container">
 	<div class="row">
 		
-	<form id="leap" class="form-inline">
-  <label class="sr-only" for="inlineFormInput">Seconds</label>
-  <input id="time" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" value="5">
-		
-	<button type="button" class="btn btn-primary"> Go to</button>
-
+	
   <div class="form-check mb-2 mr-sm-2 mb-sm-0">
     <label class="form-check-label">
       <input  id="play-back" class="form-check-input" type="checkbox" checked="checked"> Pause Playback(for testing)
@@ -67,7 +62,7 @@
 
 			<div class="row">
 	 			<div class="col-2">
-    		<input id="name" type="text" class="form-control" value="Test Name">
+    		<input id="name" type="text" class="form-control" placeholder="Name Here">
   		</div>
 		</div>
 	
@@ -78,7 +73,7 @@
     <textarea class="form-control" type="text" id="add-comment" rows="4"  placeholder="Comment Here"></textarea>
   </div>
 	<div>
-		<button id="submit" class="btn btn-primary" onclick="clearComments()">Submit</button>
+		<button id="submit" class="btn btn-primary">Submit</button>
 	</div>
 	</div> <!-- container -->
 	
@@ -87,6 +82,7 @@
 
 	
 	<div>
+		<button id="delete-comments" class="btn btn-danger" >Delete All Comments</button>
 		<P id="test"></P>
 	</div>
 	</div> <!-- container -->

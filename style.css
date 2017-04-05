@@ -1,4 +1,13 @@
+html {
+    height: 100%;
+}
 
+body{
+	color: #A6A8AC;
+background: linear-gradient(10deg, rgba(76,76,76,1) 0%, rgba(19,19,19,1) 94%, rgba(19,19,19,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=1 );
+
+}
 
 div{
 	//margin: 5px;
@@ -31,17 +40,12 @@ div{
 	font-weight: lightbold;
 	color: white;
 	
-	background-color: #57575e;
-	border-radius: 7px 7px 0px 0px;
--moz-border-radius: 7px 7px 0px 0px;
--webkit-border-radius: 7px 7px 0px 0px;
+	background-color: #222933;
+	
 
-	padding: 10px 3px 3px 25px;
+	padding: 10px 3px 25px 25px;
 	margin: 5px;
-	border-radius: 7px 7px 7px 7px;
-	-moz-border-radius: 7px 7px 7px 7px;
-	-webkit-border-radius: 7px 7px 7px 7px;
-	border: 1px ridge #666666;
+	
 	width: 90%;
 	
 }
@@ -51,6 +55,47 @@ div{
 
 }
 
+#delete-comments{
+	float:right;
+	margin: 10px;
+	margin-right: 130px;
+}
+
 #play-back{
 	margin: 15px;
+	
+}
+
+.marker-time{
+	color: #A6A8AC;
+	background-color: #121313;
+	padding: 2px 5px;
+	display
+}
+
+.date-of-commnet{
+	color: #5C5D5F;
+	font-size: 13px;
+	font-weight: bold;
+	letter-spacing: -0.5px;
+	
+}
+
+.text-of-commnet{
+	color: #A6A8AC;
+}
+
+.form-control{
+	background-color: #5C5D5F;
+	color: white;
+}
+
+.form-control::-moz-placeholder {
+  color: white;
+}
+.form-control:-ms-input-placeholder {
+  color: white;
+}
+.form-control::-webkit-input-placeholder {
+  color: white;
 }

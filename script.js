@@ -23,8 +23,9 @@ var tester = 5;
 const dbRef = firebase.database().ref().child('comments-received');
 
 
-//listens time jumper.
-document.getElementById("leap").addEventListener("click", goTo);
+// Deletes Comments.
+
+document.getElementById("delete-comments").addEventListener("click", killAllComments);
 
 //--- shuttle buttons ---//
 
@@ -33,7 +34,7 @@ document.getElementById("back1").addEventListener("click", shuttleBackOne);
 document.getElementById("forward1").addEventListener("click", shuttleForwardOne);
 document.getElementById("forward").addEventListener("click", shuttleForwardFive);
 
-//listen for comments.
+// -----comments-----
 document.getElementById("submit").addEventListener("click",addComment)
 
 var test = document.getElementsByClassName("read-out");
@@ -87,19 +88,21 @@ function addComment(){
 	
 	
 	
-	var time = "Time: " + today.getHours() + ":" 
+	var time = today.getHours() + ":" 
 	+ today.getMinutes() + ":" 
-	+ today.getSeconds() + "<br> Date: " 
-	+ today.getFullYear()+'-'
-	+(today.getMonth()+1)+'-'
-	+today.getDate();;
+	+ today.getSeconds();
+	
+	var date = today.getDate()+' / '
+	+(today.getMonth()+1)+' / '
+	+today.getFullYear();
 	
 	
-	var newSubmit = new commentCreator(today, playerTime, userComment);
+	var newSubmit = new commentCreator(date, time);
 	commentMaster.push(newSubmit);
 	
 	// send to database. 
 	dbRef.push(newSubmit);
+	clearComments();
 	
 	//printToDom(commentMaster);
 	//spitOutTestData();
@@ -111,9 +114,10 @@ function addComment(){
 
 
 // -- creates new object with paramiters. 
-function commentCreator(name,date, pTime, comment) {
+function commentCreator(date, time) {
+		this.date = date;
+		this.time = time;
 		this.name = document.getElementById("name").value
-    this.date = new Date();
     this.markerAt = video.currentTime;
     this.comment =  document.getElementById("add-comment").value;
     
@@ -127,9 +131,12 @@ function printToDom (e){
 	
 	for (var i = 0; i < printMe.length; i++){
 		commentMenu.innerHTML += 
-			"<div class='comment-element' onclick='jumper("+printMe[i].markerAt +")'>" 
-			+ '<p> name: '+ printMe[i].name + ' : ' + printMe[i].markerAt + '<br/>'
-			+ printMe[i].comment + '</p>';
+			"<div class='comment-element' onclick='jumper("
+			+ printMe[i].markerAt +")'>"
+			+ printMe[i].name + ' : ' 
+			+ '<span class="marker-time">'+printMe[i].markerAt + '</span> : '
+			+ '<span class="date-of-commnet">' + printMe[i].date + '</span> <br/>'
+			+ '<span class="text-of-commnet">'+printMe[i].comment + '</span>';
 
 	}
 	
@@ -172,10 +179,17 @@ function shuttleForwardFive(){
 //---- allows comments to jump to time in movie---//
 function jumper(e){
 	video.currentTime = e;
+	pausePlayer()
 }
 
 function clearComments(){
 	document.getElementById('add-comment').value = "";
+}
+
+function killAllComments (){
+	
+	console.log("killer button");
+	dbRef.set(null);
 }
 
 //----- vomits out object data ---//
