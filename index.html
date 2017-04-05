@@ -1,0 +1,94 @@
+<header>
+
+	
+</header>
+
+<body>
+	
+	<!-- firebase google stuff -->
+	<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+
+
+	<!-- simple second selector -->
+<div class="container">
+	<div class="row">
+		
+	<form id="leap" class="form-inline">
+  <label class="sr-only" for="inlineFormInput">Seconds</label>
+  <input id="time" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" value="5">
+		
+	<button type="button" class="btn btn-primary"> Go to</button>
+
+  <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+    <label class="form-check-label">
+      <input  id="play-back" class="form-check-input" type="checkbox" checked="checked"> Pause Playback(for testing)
+    </label>
+  </div> <!-- end form-check -->
+
+</form><!-- end of selector -->
+</div><!-- end row -->
+	
+	
+<div class="row"><!-- main box -->
+		
+<div id="video-box" class="col-md-7"> <!-- video player / controls -->
+	
+	<!-- player -->
+	<div id="player"> 
+  <video id="video1" width="640" height="360"
+				 poster="http://sandbox.thewikies.com/vfe-generator/images/big-buck-bunny_poster.jpg" controls>
+   <source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
+  </video>
+	</div><!-- end player --->
+	
+		<!-- vidoe controls -->
+		
+			<div id="controls">
+				<button id="back" class="btn btn-primary"> << </button>
+				<button id="back1" class="btn btn-primary"> < </button>
+				<button id="forward1" class="btn btn-primary"> > </button>
+				<button id="forward" class="btn btn-primary"> >> </button>
+			</div><!-- end video controls -->
+			
+		</div> <!--- end video-box --->
+	
+		<!-- comments Print out here -->
+		<div class="col-sm-4 comment-row">
+			COMMENTS
+			<div id="comment-list" class="row">
+			
+			</div>
+		
+		</div>
+
+	</div><!-- end class="row" -->
+	
+	
+
+			<div class="row">
+	 			<div class="col-2">
+    		<input id="name" type="text" class="form-control" placeholder="Name Here">
+  		</div>
+		</div>
+	
+	
+	<div class="row">
+ 
+  <div class="col-6">
+    <textarea class="form-control" id="add-comment" rows="4"  placeholder="Comment Here"></textarea>
+  </div>
+	<div>
+		<button id="submit" type="submit" class="btn btn-primary" onclick="checkForName()">Submit</button>
+	</div>
+	</div> <!-- container -->
+	
+
+	
+
+	
+	<div>
+		<P id="test"></P>
+	</div>
+	</div> <!-- container -->
+	
+	</body>

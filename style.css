@@ -1,0 +1,56 @@
+
+
+div{
+	//margin: 5px;
+}
+
+//#right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: scroll;
+    width: 25%;
+  }
+
+.row{
+//	margin-left: 10px;
+}
+
+.comment-row{
+	position: absolute;
+	top: 15px;
+  bottom: 0;
+  right: 40px;
+  overflow-y: scroll;
+  width: 50%;
+	height:100%;
+}
+
+.comment-element{
+	font-weight: lightbold;
+	color: white;
+	
+	background-color: #57575e;
+	border-radius: 7px 7px 0px 0px;
+-moz-border-radius: 7px 7px 0px 0px;
+-webkit-border-radius: 7px 7px 0px 0px;
+
+	padding: 10px 3px 3px 25px;
+	margin: 5px;
+	border-radius: 7px 7px 7px 7px;
+	-moz-border-radius: 7px 7px 7px 7px;
+	-webkit-border-radius: 7px 7px 7px 7px;
+	border: 1px ridge #666666;
+	width: 90%;
+	
+}
+
+.form-inline{
+	margin: 10px;
+
+}
+
+#play-back{
+	margin: 15px;
+}
