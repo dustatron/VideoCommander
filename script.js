@@ -16,6 +16,11 @@ var commentMaster = [];
 
 var tester = 5;
 
+// Import Admin SDK
+
+const dbRef = firebase.database().ref().child('comments');
+
+
 //listens time jumper.
 document.getElementById("leap").addEventListener("click", goTo);
 
@@ -46,7 +51,7 @@ function goTo(){
 
 //-------------- 
 
-//this function checks if pause player is checked. if it is it pause the player.
+//----checks if pause player is checked. if it is it pause the player.
 function pausePlayer(){
 
 	var checkBox = document.getElementById("play-back").checked;
@@ -81,11 +86,14 @@ function addComment(){
 		+ userComment + "</div>";
 		*/
 	
+	
 	var newSubmit = new commentCreator(today, playerTime, userComment);
 	commentMaster.push(newSubmit);
 	
+	dbRef.push(newSubmit);
+	
 	printToDom(commentMaster);
-	spitOutTestData();
+	//spitOutTestData();
 
 	
 }//end adComment
