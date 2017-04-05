@@ -23,8 +23,7 @@ var tester = 5;
 const dbRef = firebase.database().ref().child('comments-received');
 
 
-// Deletes Comments.
-
+//----Delete All Comments
 document.getElementById("delete-comments").addEventListener("click", killAllComments);
 
 //--- shuttle buttons ---//
@@ -34,10 +33,11 @@ document.getElementById("back1").addEventListener("click", shuttleBackOne);
 document.getElementById("forward1").addEventListener("click", shuttleForwardOne);
 document.getElementById("forward").addEventListener("click", shuttleForwardFive);
 
-// -----comments-----
+
+// ----- submit button listenr -----//
 document.getElementById("submit").addEventListener("click",addComment)
 
-var test = document.getElementsByClassName("read-out");
+
 
 //--------------------- functions --------------------------//
 
@@ -45,48 +45,29 @@ window.onload = function(){
 		
 	dbRef.on("value", function(snapshot) {
 		printToDom(snapshot.val());
-  	//console.log(snapshot.val());
 			}, function (errorObject) {
  					 console.log("The read failed: " + errorObject.code);
 		});
 	
-	
-  //  dbRef.on('value',snap => { 
-	//		testReadOut.innerHTML = JSON.stringify(snap.val(), null, 3)});
 	}
 
-/// this function skips to the time entered. 
-function goTo(){
-	
-	var time = document.getElementById("time").value;
-	
-	//this jumps the videos playhead to time. 
-	video.currentTime = time;
-	pausePlayer();
-
-	}// end goTO
-
-//-------------- 
 
 //----checks if pause player is checked. if it is it pause the player.
 function pausePlayer(){
 
 	var checkBox = document.getElementById("play-back").checked;
-	//document.getElementById("test").innerHTML = checkBox;	
 	if (checkBox){
 			return video.pause();
 		}
 }//end pausePlayer
 
 
-//get comments and post them to the DOM.
+///// ads user comment to db ////
 function addComment(){
+
 	
+	///// human readable time ///
 	var today = new Date();
-	var playerTime = video.currentTime;
-	var userComment = document.getElementById("add-comment").value;
-	
-	
 	
 	var time = today.getHours() + ":" 
 	+ today.getMinutes() + ":" 
@@ -96,24 +77,20 @@ function addComment(){
 	+(today.getMonth()+1)+' / '
 	+today.getFullYear();
 	
-	
+	//// create new object from comment ////
 	var newSubmit = new commentCreator(date, time);
 	commentMaster.push(newSubmit);
 	
-	// send to database. 
+	/// push comment to db ////
 	dbRef.push(newSubmit);
 	clearComments();
-	
-	//printToDom(commentMaster);
-	//spitOutTestData();
-
 	
 }//end adComment
 
 
 
 
-// -- creates new object with paramiters. 
+// -- creates new object with parameters. 
 function commentCreator(date, time) {
 		this.date = date;
 		this.time = time;
@@ -123,35 +100,25 @@ function commentCreator(date, time) {
     
 }
 
-// ----- clears the comments then rewrites them from commnetMaster array ----//
+/// clears list then re-writes comment list ///
 function printToDom (e){
-	document.getElementById("comment-list").innerHTML = "";
 
 	var printMe = Object.values(e);
 	
+	//---- clear ----//
+	document.getElementById("comment-list").innerHTML = "";
+
+	//----- write ----//
 	for (var i = 0; i < printMe.length; i++){
 		commentMenu.innerHTML += 
-			"<div class='comment-element' onclick='jumper("
+			"<div class='comment-element' onclick='goTo("
 			+ printMe[i].markerAt +")'>"
 			+ printMe[i].name + ' : ' 
 			+ '<span class="marker-time">'+printMe[i].markerAt + '</span> : '
 			+ '<span class="date-of-commnet">' + printMe[i].date + '</span> <br/>'
 			+ '<span class="text-of-commnet">'+printMe[i].comment + '</span>';
 
-	}
-	
-	
-	//console.log("printer run");
-	//console.log(e);
-	
-	/*for(var key in e){
-		var homeRow = e[key];
-		for (var prop in homeRow){
-			console.log(prop + ' = ' + homeRow[prop])
-		}
-	}*/
-	
-	
+	}// End For Loop
 	
 }// End print to DOM
 
@@ -177,34 +144,19 @@ function shuttleForwardFive(){
 }
 
 //---- allows comments to jump to time in movie---//
-function jumper(e){
+function goTo(e){
 	video.currentTime = e;
 	pausePlayer()
 }
 
+/// clears the users comment box ///
 function clearComments(){
 	document.getElementById('add-comment').value = "";
 }
 
+/// deletes  all childern of dbRef node //
 function killAllComments (){
-	
-	console.log("killer button");
 	dbRef.set(null);
 }
 
-//----- vomits out object data ---//
-function spitOutTestData(){
-		var x = JSON.stringify(commentMaster);
-	document.getElementById("test").innerHTML = x;
-}
-
-/*
-function checkForName (){
-	var checkName = document.getElementById("name").value;
-	if (checkName === ""){
-		alert("Name must be filled out");
-    return false;
-	}
-	}
-*/	
 
