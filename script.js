@@ -20,7 +20,7 @@ var tester = 5;
 
 ///// Reference to Firebase Database
 
-const dbRef = firebase.database().ref().child('comments-received');
+const dbRef = firebase.database().ref().child('comments');
 
 
 //----Delete All Comments
@@ -30,6 +30,7 @@ document.getElementById("delete-comments").addEventListener("click", killAllComm
 
 document.getElementById("back").addEventListener("click", shuttleBackFive);
 document.getElementById("back1").addEventListener("click", shuttleBackOne);
+document.getElementById("play").addEventListener("click", shuttlPlay);
 document.getElementById("forward1").addEventListener("click", shuttleForwardOne);
 document.getElementById("forward").addEventListener("click", shuttleForwardFive);
 
@@ -42,7 +43,8 @@ document.getElementById("submit").addEventListener("click",addComment)
 //--------------------- functions --------------------------//
 
 window.onload = function(){ 
-		
+	
+	/// passing dbRef as object to printToDoM() ///
 	dbRef.on("value", function(snapshot) {
 		printToDom(snapshot.val());
 			}, function (errorObject) {
@@ -133,6 +135,27 @@ function shuttleBackFive(){
 	pausePlayer();
 }
 
+function shuttlPlay(){
+	if(video.paused){
+		video.play();
+	} else {
+		video.pause();
+	}
+
+}
+
+// playing video with spacebar
+document.onkeypress = function(e){
+    if((e || window.event).keyCode === 32){
+        video.paused ? video.play() : video.pause();
+    }
+		return !(e.keyCode == 32);  
+	};
+
+function shuttlPause(){
+	video.pause();
+}
+
 function shuttleForwardOne(){
 	video.currentTime = video.currentTime + .1;
 	pausePlayer();
@@ -156,6 +179,7 @@ function clearComments(){
 
 /// deletes  all childern of dbRef node //
 function killAllComments (){
+	console.log("killed comments");
 	dbRef.set(null);
 }
 
