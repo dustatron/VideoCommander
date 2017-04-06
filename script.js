@@ -113,7 +113,7 @@ function printToDom (e){
 	//----- write ----//
 	for (var i = 0; i < printMe.length; i++){
 		commentMenu.innerHTML += 
-			"<div class='comment-element' onclick='goTo("
+			"<div class='comment-element text-left center-block' onclick='goTo("
 			+ printMe[i].markerAt +")'>"
 			+ printMe[i].name + ' : ' 
 			+ '<span class="marker-time">'+printMe[i].markerAt + '</span> : '

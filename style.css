@@ -4,29 +4,40 @@ html {
 
 body{
 	color: #A6A8AC;
-	background-color: #202021;
+	background-color: #202021; 
+	overflow:hidden; /* stops page scroll */
 
 }
 
 div{
 	//margin: 5px;
+	//border: 1px solid red;
+}
+
+
+video{
+	display: block;
+	width: 90%;
+  height: auto;
+	margin: auto;
 }
 
 #submit{
-	float: right;
-	position: relative;
-	right: 24%;
-	top: 0;
+	display: block;
+	//float: right;
+	position: center;
+	//left: 2%;
+	//top: 0;
 	
-	padding: 40px 0px;
+	padding: 2% 20% 1% 20%;
 	
-	width: 66px;
-	height: 90px;
+	width: 100%;
+	height: 90%;
 	
 	background: black;
-	border-radius: 0px 10px 10px 0px;
+	border-radius: 0px 0px 10px 10px;
 	box-shadow: 0px 4px #121313;
-	margin: 4px;
+	//margin: 5%;
 	color: #777;
 	line-height: 20px;
 	text-align:center;
@@ -50,15 +61,16 @@ div{
 
 #controls span{
 	//border: 1px solid red;
-	float: left;
+	
+	float: right;
+	left: 35%;
 	position: relative;
-	left: 22%;
-	top: 0;
+	//margin: 5px 100px;
+	//top: 0;
 	
-	padding: 7px;
+	padding: 1%;
 	
-	width: 66px;
-	height: 36px;
+	width: 5%;
 	
 	background: black;
 	border-radius: 6px;
@@ -75,6 +87,7 @@ div{
 	transition: all 0.2s ease;
 }
 
+
 #controls span:hover {
 	background: white;
 	box-shadow:0px 4px gray;
@@ -84,6 +97,7 @@ div{
 	box-shadow: 0px 0px #6b54d3;
 	top:4px;
 }
+
 
 //#right {
     position: absolute;
@@ -99,16 +113,25 @@ div{
 }
 
 .comment-row{
-	position: absolute;
-	top: 15px;
-  bottom: 0;
-  right: 1px;
+ display: block;
+	//position: relative;
+	//top: 10%;
+ //bottom: 0;
+  //right: 0px;
+	//white-space: pre-wrap;
   overflow-y: scroll;
-  width: 50%;
-	height:100%;
+  width: 100%;
+	height:100vh;
+	margin: auto;
+}
+
+.comment-row::-webkit-scrollbar { 
+  /* This is the magic bit */
+  display: none;
 }
 
 .comment-element{
+	display: block;
 	font-weight: lightbold;
 	color: white;
 	
@@ -116,10 +139,22 @@ div{
 	
 
 	padding: 10px 3px 25px 25px;
-	margin: 5px;
+	margin: 1px;
 	
-	width: 90%;
+	width: 100%;
 	
+}
+
+.comment-element:hover{
+	background-color: #222950;
+}
+
+.comment-element:active{
+	background-color: #222900;
+}
+
+.comment-element:focus{
+	background-color: white;
 }
 
 .form-inline{
