@@ -145,12 +145,17 @@ function shuttlPlay(){
 }
 
 // playing video with spacebar
+
 document.onkeypress = function(e){
-    if((e || window.event).keyCode === 32){
-        video.paused ? video.play() : video.pause();
-    }
-		return !(e.keyCode == 32);  
+     if(e.keyCode == 32 && e.target.nodeName.toUpperCase() === "BODY"){
+			 e.preventDefault(); 
+			 video.paused ? video.play() : video.pause();
+    } 
+		
+		
+		
 	};
+	
 
 function shuttlPause(){
 	video.pause();
