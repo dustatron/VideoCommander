@@ -30,13 +30,6 @@
 	<div class="row">
 		
 	
-  <div id="test-tools" class="form-check mb-2 mr-sm-2 mb-sm-0">
-    <label class="form-check-label">
-      <input  id="play-back" class="form-check-input" type="checkbox" checked="checked"> Pause Playback(for testing)...
-    </label>
-		<button id="delete-comments" class="btn btn-danger" >Delete All Comments</button>
-  </div> <!-- end form-check -->
-
 </form><!-- end of selector -->
 </div><!-- end row -->
 	
@@ -58,34 +51,11 @@
 	
 	<!-- player -->
 	<div id="player"> 
-  <video id="video1" class="block-centert" >
+  <video id="video1" class="block-centert" controls>
    <source src="https://firebasestorage.googleapis.com/v0/b/video-commander.appspot.com/o/Mercurial%20Fast%20Forward_R17_AppleTV_Large.m4v?alt=media&token=54df1a66-e2c1-4e55-a916-faead37d5985" type="video/mp4" />
   </video>
 	</div><!-- end player --->
-		<!-- 
-		 ///////////////////////////////////////////////////////////////////
-		////////////////       video Shuttle Controls   ///////////////////
-		//////////////////////////////////////////////////////////////////
-			-->
-			<div id="play-buttons" class="row  block-left">
-			<div id="controls" class="col-md-12 block-left ">
-				
-					<span id="play"><i class="fa fa-play fa-1x" aria-hidden="true"></i></span>
-					
-				
-			</div><!-- end video controls -->
 	
-			</div>
-			<div class="row">
-				<div class="col-0"></div>
-				<div id="time-controls" class="col-12"> 
-					<input  id="currentTimeField" type="text" readonly  size="4" placeholder="00:00" />
-					<input  id="scrubSlider" type="range" min="1" max="100" step="1" value="0">
-				</div>
-				
-			</div>
-	
-			
 		<!-- 
 			/////////////////////////////////////////////////////////////			
 			////////////////////    name -- Submit /////////////////////
