@@ -58,7 +58,7 @@ const NewCommentView = function(comments) {
   }
 }
 
-const Comments = function() {
+const Comments = function(scope) {
   this.forEach = function(callback) {
     comments.forEach(callback);
   };
@@ -89,12 +89,16 @@ const Comments = function() {
     };
     firebase.initializeApp(config);
 
-    commentsSubscription = firebase.database().ref().child('comments');
+    const safeScope = scope.replace(/[\/\.\#\$\[\]]/g, "-");
+    commentsSubscription = firebase.database().ref().child(safeScope);
     commentsSubscription.on("value", function(snapshot) {
-      comments = Object.values(snapshot.val());
-      updateCallbacks.forEach(function(callback) {
-        callback();
-      });
+      const snapshotComments = snapshot.val();
+      if(snapshotComments) {
+        comments = Object.values(snapshotComments);
+        updateCallbacks.forEach(function(callback) {
+          callback();
+        });
+      };
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
@@ -104,7 +108,10 @@ const Comments = function() {
 };
 
 function boot() {
-  const comments = new Comments();
+  const videoUrl = window.location.search.substring(1);
+  document.getElementById("video1").src = videoUrl;
+
+  const comments = new Comments(videoUrl);
   const commentsView = new CommentsView(comments);
   const newCommentView = new NewCommentView(comments);
 }
