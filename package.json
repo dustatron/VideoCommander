@@ -1,0 +1,11 @@
+{
+  "name": "video_commander",
+  "version": "1.0.0",
+  "main": "script.js",
+  "repository": "git@github.com:dustatron/VideoCommander.git",
+  "author": "Dusty McCord <dustymccord@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-tools": "^3.6.0"
+  }
+}

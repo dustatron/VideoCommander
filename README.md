@@ -1,7 +1,16 @@
 Video Commander 
 ----------------
 
+A video review and approval tool.
 
-A [Pen](http://codepen.io/Dustatron/pen/YZBjqM) by [Dusty McCord](http://codepen.io/Dustatron) on [CodePen](http://codepen.io/).
+Prerequisites:
+* make
+* node
+* yarn
 
-[License](http://codepen.io/Dustatron/pen/YZBjqM/license).
+install with:
+`make install`
+
+deploy with:
+`make deploy`
+
