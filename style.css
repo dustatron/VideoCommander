@@ -3,9 +3,10 @@ html {
 }
 
 body{
+	padding-top: 60px;
 	color: #A6A8AC;
 	background-color: #202021; 
-	overflow:hidden; /* stops page scroll */
+	//overflow:hidden; /* stops page scroll */
 
 }
 
@@ -14,25 +15,60 @@ div{
 	//border: 1px solid red;
 }
 
+/*----------------------------
+/////////// Nav Bar /////////
+*/
+
+nav {
+ box-sizing: border-box;
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ padding: 13px 60px;
+ text-align: center;
+ font-weight: bold;
+ background-color: #001;
+ font-size: 18px;
+ letter-spacing: 2px;
+ word-spacing; 4px;
+ opacity: 0.8;
+}
+
+.navbar{
+  //background: #FF2B2B;
+  text-align: center;
+  opacity: 0.8;
+}
+
+
+/*----------------------------------
+/////////// REST OF PAGE////////////
+*/
+
+#test-tools{
+	display: none;
+}
 
 video{
 	display: block;
-	width: 90%;
+	width: 83%;
   height: auto;
 	margin: auto;
 }
 
+
 #submit{
 	display: block;
 	//float: right;
-	position: center;
+	//position: center;
 	//left: 2%;
 	//top: 0;
 	
 	padding: 2% 20% 1% 20%;
 	
-	width: 100%;
-	height: 90%;
+	//width: 100%;
+	//height: 90%;
 	
 	background: black;
 	border-radius: 0px 0px 10px 10px;
@@ -62,20 +98,19 @@ video{
 #controls span{
 	//border: 1px solid red;
 	
-	float: right;
+	float: left;
 	left: 35%;
 	position: relative;
 	//margin: 5px 100px;
 	//top: 0;
 	
+	margin: 2px;
 	padding: 1%;
-	
-	width: 5%;
+	width: 8%;
 	
 	background: black;
 	border-radius: 6px;
 	box-shadow: 0px 4px #121313;
-	margin: 4px;
 	color: #777;
 	line-height: 20px;
 	text-align:center;
@@ -98,32 +133,167 @@ video{
 	top:4px;
 }
 
-
-//#right {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    overflow-y: scroll;
-    width: 25%;
-  }
-
-.row{
-//	margin-left: 10px;
+#time-controls{
+	display: block;
+	float: left;
+	left: 10%;
+	position: relative;
 }
+
+#currentTimeField{
+	padding: 1px;
+	margin-right: 20px;
+	border-radius: 0px;
+	background-color: transparent;
+  border: 0px solid;
+	color: white;
+	width:6%;
+	
+}
+/*
+////////////////////////////////////
+/////// scrub start ////////////////
+///////////////////////////////////
+*/
+
+#scrubSlider {
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 70%;
+	background: rgba(0, 0, 0, 0.2);
+}
+#scrubSlider:focus {
+  outline: none;
+}
+#scrubSlider::-webkit-slider-runnable-track {
+  width: 60%;
+  height: 15px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #50555C;
+  background: #50555C;
+  border-radius: 14px;
+  border: 0px solid #000000;
+}
+#scrubSlider::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 0px solid #000000;
+  height: 18px;
+  width: 40px;
+  border-radius: 12px;
+  background: #529DE1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: 0.5px;
+}
+#scrubSlider:focus::-webkit-slider-runnable-track {
+  background: #50555C;
+}
+#scrubSlider::-moz-range-track {
+  width: 100%;
+  height: 19px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #50555C;
+  background: #50555C;
+  border-radius: 14px;
+  border: 0px solid #000000;
+}
+#scrubSlider::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 0px solid #000000;
+  height: 18px;
+  width: 40px;
+  border-radius: 12px;
+  background: #529DE1;
+  cursor: pointer;
+}
+#scrubSlider::-ms-track {
+  width: 100%;
+  height: 19px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+#scrubSlider::-ms-fill-lower {
+  background: #50555C;
+  border: 0px solid #000000;
+  border-radius: 28px;
+  box-shadow: 1px 1px 1px #50555C;
+}
+#scrubSlider::-ms-fill-upper {
+  background: #50555C;
+  border: 0px solid #000000;
+  border-radius: 28px;
+  box-shadow: 1px 1px 1px #50555C;
+}
+#scrubSlider::-ms-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 0px solid #000000;
+  height: 18px;
+  width: 40px;
+  border-radius: 12px;
+  background: #529DE1;
+  cursor: pointer;
+}
+#scrubSlider:focus::-ms-fill-lower {
+  background: #50555C;
+}
+#scrubSlider:focus::-ms-fill-upper {
+  background: #50555C;
+}
+
+/*
+////////////////////////////////////
+/////// end scrub /////////////////
+///////////////////////////////////
+*/
+
+/*#comment-header{
+	font-weight: bold;
+	color: #777;
+	//display: block;
+	//float: right;
+	//position: center;
+	//left: 2%;
+	//top: 0;
+	
+	padding: 1%;
+	
+	//width: 90%;
+  //height: 10%;
+	
+	background: #001;
+	border-radius: 10px 10px 0px 0px;
+	//margin-top: 10px;
+	//line-height: 20px;
+	//text-align:center;
+	
+	/* prevent selection of text inside keys */
+/*user-select: none;
+	
+}*/
 
 .comment-row{
- display: block;
+	//border: 1px solid red;
+	padding-left: 0 !important;
+  padding-right: 0 !important;
+  //display: block;
 	//position: relative;
 	//top: 10%;
- //bottom: 0;
+  //bottom: 0;
   //right: 0px;
 	//white-space: pre-wrap;
-  overflow-y: scroll;
-  width: 100%;
-	height:100vh;
-	margin: auto;
+  //overflow-y: scroll;
+  //width: 100%;
+	//height:100vh;
+	//margin: auto;
+	//margin-top: 5px;
 }
+
+
 
 .comment-row::-webkit-scrollbar { 
   /* This is the magic bit */
@@ -131,17 +301,12 @@ video{
 }
 
 .comment-element{
-	display: block;
+	//border: 1px solid red;
+	
 	font-weight: lightbold;
 	color: white;
-	
-	background-color: #222933;
-	
-
-	padding: 10px 3px 25px 25px;
-	margin: 1px;
-	
-	width: 100%;
+	background: #222933;
+	padding: 10px 5px 20px 20px;
 	
 }
 

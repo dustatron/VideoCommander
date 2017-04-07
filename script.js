@@ -26,25 +26,44 @@ const dbRef = firebase.database().ref().child('comments');
 //----Delete All Comments
 document.getElementById("delete-comments").addEventListener("click", killAllComments);
 
-//--- shuttle buttons ---//
+//--------------- VIDEO CONTROS ---------------------////
 
-document.getElementById("back").addEventListener("click", shuttleBackFive);
+//------- SHUTTLE VARIABLES  ----//
+var muteButton = document.getElementById("muteButton");
+var scrubSlider = document.getElementById("scrubSlider");
+var volumeSlider = document.getElementById("volumeSlider");
+var fullScreenButton = document.getElementById("fullScreen");
+var speedSelecter = document.getElementById("speedSelecter");
+var currentTimeDisplay = document.getElementById("currentTimeField");
+var speedDisplay = document.getElementById("speedDisplayBox");
+
+// --- on click fucntions ---//
 document.getElementById("back1").addEventListener("click", shuttleBackOne);
 document.getElementById("play").addEventListener("click", shuttlPlay);
 document.getElementById("forward1").addEventListener("click", shuttleForwardOne);
-document.getElementById("forward").addEventListener("click", shuttleForwardFive);
 
+
+
+//---- Mouse Events ---///
+video.addEventListener("timeupdate", movePlaySlider); 
+video.addEventListener("timeupdate", getCurrentTime); 
+scrubSlider.addEventListener("mousedown", pauseSlider); // drag slider
+scrubSlider.addEventListener("mouseup", resumeSlider); // resume slider
+scrubSlider.addEventListener("change", scrubVideo); // check for video scrub value changes
+  
 
 // ----- submit button listenr -----//
 document.getElementById("submit").addEventListener("click",addComment)
 
 
 
-//--------------------- functions --------------------------//
+/*
+////////// functions /////////////
+*/
 
 window.onload = function(){ 
 	
-	/// passing dbRef as object to printToDoM() ///
+//// passing dbRef as object to printToDoM() ///
 	dbRef.on("value", function(snapshot) {
 		printToDom(snapshot.val());
 			}, function (errorObject) {
@@ -62,6 +81,47 @@ function pausePlayer(){
 			return video.pause();
 		}
 }//end pausePlayer
+
+
+function scrubVideo() {
+    var scrubTime = video.duration * (scrubSlider.value / 100);
+    video.currentTime = scrubTime; // sets the current play time to the value of the slide bar
+  }
+
+  function movePlaySlider() {
+    var playBackPoint = (100 / video.duration) * video.currentTime;
+    scrubSlider.value = playBackPoint; //sets the paybar value to the current palyback time value
+  }
+
+  function pauseSlider() {
+    video.pause(); // pauses the video when the slider his pressed
+  }
+
+  function resumeSlider() // 
+  {
+    video.play(); // resumes the slider when the video is pressed
+		pausePlayer();
+  }
+
+
+  
+// gets playback time
+  function getCurrentTime(){
+    var currentTime = video.currentTime;
+    var minutes = Math.floor(currentTime / 60);
+    var seconds = Math.floor(currentTime % 60);
+
+    if (minutes < 10){
+      minutes = "0" + minutes;
+    } else if (seconds < 10){
+      seconds = "0" + seconds;
+    }
+		
+    currentTimeDisplay.setAttribute("value", (minutes + ":" + seconds)); 
+    
+  }
+
+
 
 
 ///// ads user comment to db ////
@@ -89,6 +149,27 @@ function addComment(){
 	
 }//end adComment
 
+function videoTimeReadOut (){
+	var currentFrame = video.currentTime;
+	var min = Math.floor(currentFrame / 60);
+	var sec = Math.floor(currentFrame % 60);
+	
+	if (min < 10){
+      min = "0" + min;
+    }
+    if (sec < 10) {
+      sec = "0" + sec; 
+    }
+	var readOut = min + ":" + sec;
+		
+		console.log(min);
+		console.log(sec);
+		console.log(currentFrame);
+		console.log(readOut);
+    return readOut; //display the video durration
+	
+	
+}
 
 
 
@@ -97,7 +178,8 @@ function commentCreator(date, time) {
 		this.date = date;
 		this.time = time;
 		this.name = document.getElementById("name").value
-    this.markerAt = video.currentTime;
+    this.markerAt = videoTimeReadOut();
+		this.second = video.currentTime;
     this.comment =  document.getElementById("add-comment").value;
     
 }
@@ -113,8 +195,8 @@ function printToDom (e){
 	//----- write ----//
 	for (var i = 0; i < printMe.length; i++){
 		commentMenu.innerHTML += 
-			"<div class='comment-element text-left center-block' onclick='goTo("
-			+ printMe[i].markerAt +")'>"
+			"<div class='comment-element text-left' onclick='goTo("
+			+ printMe[i].second +")'>"
 			+ printMe[i].name + ' : ' 
 			+ '<span class="marker-time">'+printMe[i].markerAt + '</span> : '
 			+ '<span class="date-of-commnet">' + printMe[i].date + '</span> <br/>'

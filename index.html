@@ -9,21 +9,28 @@
 	<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
 	<script src="https://use.fontawesome.com/22e00c6a2d.js"></script>
 
+<!-- 
+//////////////////////////////////////////////////////////////////
+/////////////       Nav Bar      ////////////////////////////////
+////////////////////////////////////////////////////////////////
+-->
 
-	<!-- simple second selector -->
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-12 text-center">
-			NAV BAR HERE
-		</div>
-	</div>	
-</div>	
-	
-<div class="container-fluid">
+<nav>
+    NAV BAR
+  </nav>
+
+		
+<!-- 
+////////////////////////////////////////////////////////////////
+/////////////    testing tools    /////////////////////////////
+//////////////////////////////////////////////////////////////
+
+-->
+	<div  class="container-fluid"><!-- main body container -->
 	<div class="row">
 		
 	
-  <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+  <div id="test-tools" class="form-check mb-2 mr-sm-2 mb-sm-0">
     <label class="form-check-label">
       <input  id="play-back" class="form-check-input" type="checkbox" checked="checked"> Pause Playback(for testing)...
     </label>
@@ -33,35 +40,59 @@
 </form><!-- end of selector -->
 </div><!-- end row -->
 	
+
+<!-- 
+///////////////////////////////////////////////////////////////////
+////////////////    main body container  /////////////////////////
+/////////////////////////////////////////////////////////////////
+-->
 	
-<div id="main-box" class="row"><!-- main box -->
+<div id="main-box" class="row">
 
-
-
-	
-<!-- video player-->		
-<div id="video-box" class="col-md-8 block-center"> <!-- video player / controls -->
+<!-- 
+		////////////////////////////////////////////////////////////////////
+		///////             video player box and controls          /////////
+		///////////////////////////////////////////////////////////////////
+-->		
+<div id="video-box" class="col-8 block-center"> <!-- video player / controls -->
 	
 	<!-- player -->
 	<div id="player"> 
-  <video id="video1" class="block-centert" controls>
+  <video id="video1" class="block-centert" >
    <source src="https://firebasestorage.googleapis.com/v0/b/video-commander.appspot.com/o/Mercurial%20Fast%20Forward_R17_AppleTV_Large.m4v?alt=media&token=54df1a66-e2c1-4e55-a916-faead37d5985" type="video/mp4" />
   </video>
 	</div><!-- end player --->
-	
-	
-		<!-- vidoe controls -->
-			<div id="controls" class="col-md-12 block-center text-center">
-				<div id="play-buttons" class="row text-center block-center">
-					<span id="back"><i class="fa fa-fast-backward" aria-hidden="true"></i></span>
-					<span id="back1"><i class="fa fa-backward fa-1x" aria-hidden="true"></i></span>
+		<!-- 
+		 ///////////////////////////////////////////////////////////////////
+		////////////////       video Shuttle Controls   ///////////////////
+		//////////////////////////////////////////////////////////////////
+			-->
+			<div id="play-buttons" class="row  block-left">
+			<div id="controls" class="col-md-12 block-left ">
+				
+					<span id="back1"><i class="fa fa-fast-backward" aria-hidden="true"></i></span>
 					<span id="play"><i class="fa fa-play fa-1x" aria-hidden="true"></i></span>
-					<span id="forward1"><i class="fa fa-forward" aria-hidden="true"></i> </span>
-					<span id="forward"><i class="fa fa-fast-forward" aria-hidden="true"></i> </span>
-				</div><!-- end video controls -->
+					<span id="forward1"><i class="fa fa-fast-forward" aria-hidden="true"></i> </span>
+					
+				
+			</div><!-- end video controls -->
+	
+			</div>
+			<div class="row">
+				<div class="col-0"></div>
+				<div id="time-controls" class="col-12"> 
+					<input  id="currentTimeField" type="text" readonly  size="4" placeholder="00:00" />
+					<input  id="scrubSlider" type="range" min="1" max="100" step="1" value="0">
+				</div>
 				
 			</div>
-		<!-- name box -->
+	
+			
+		<!-- 
+			/////////////////////////////////////////////////////////////			
+			////////////////////    name -- Submit /////////////////////
+			///////////////////////////////////////////////////////////
+		-->
 				<div class="row">
 					<div class="col-1">
 					</div>
@@ -89,27 +120,30 @@
 			</div>
 		</div> <!--- end video-box --->
 	
-	<!-- comments Print out here -->
-	<div class="col-md-3 comment-row center-blcok text-center">
-			COMMENTS
-		<div id="comment-list" class="row center-block"></div>
-			
+	
+	
+	<!--
+	/////////////////////////////////////////////////////////////////
+	//////////////////    comments                   ///////////////
+	///////////////////////////////////////////////////////////////
+	-->
+	<div class="col-md-3 comment-row center-blcok text-center ">
+		<div class="row">
+			<div id="comment-header" class="col-12 block-center ">COMMENTS</div>
 		</div>
+		
+		<div class="row">
+			<div id="comment-list" class="col-12 block-center "></div>
+		</div>
+	</div>
+		
 	<div class="col-md-1"></div> 
+	
 	</div><!-- end class="row" -->
 	
 	
-
-		
-	
-	
-
-	
-		
-
-	
-	
 	</div> <!-- container -->
+
 	<div class="container">
 		<div class="row"> 
 			<P id="test">  </P>
