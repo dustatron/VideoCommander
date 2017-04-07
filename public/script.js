@@ -12,35 +12,20 @@ firebase.initializeApp(config);
 ///////// Global Variables  ///////
 
 var video = document.getElementById("video1");
-var commentMaster = [];
-const commentMenu = document.getElementById("comment-list");
-const testReadOut = document.getElementById("test");
-
-var tester = 5;
 
 ///// Reference to Firebase Database
 
 const dbRef = firebase.database().ref().child('comments');
 
 
-//----Delete All Comments
-document.getElementById("delete-comments").addEventListener("click", killAllComments);
-
 //--------------- VIDEO CONTROS ---------------------////
 
 //------- SHUTTLE VARIABLES  ----//
-var muteButton = document.getElementById("muteButton");
 var scrubSlider = document.getElementById("scrubSlider");
-var volumeSlider = document.getElementById("volumeSlider");
-var fullScreenButton = document.getElementById("fullScreen");
-var speedSelecter = document.getElementById("speedSelecter");
 var currentTimeDisplay = document.getElementById("currentTimeField");
-var speedDisplay = document.getElementById("speedDisplayBox");
 
 // --- on click fucntions ---//
-document.getElementById("back1").addEventListener("click", shuttleBackOne);
 document.getElementById("play").addEventListener("click", shuttlPlay);
-document.getElementById("forward1").addEventListener("click", shuttleForwardOne);
 
 //---- Mouse Events ---///
 video.addEventListener("timeupdate", movePlaySlider);
@@ -56,14 +41,12 @@ document.getElementById("submit").addEventListener("click",addComment)
 ////////// functions /////////////
 */
 
-window.onload = function(){
-  //// passing dbRef as object to printToDoM() ///
-  dbRef.on("value", function(snapshot) {
-    printToDom(snapshot.val());
-  }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  });
-}
+//// passing dbRef as object to printToDoM() ///
+dbRef.on("value", function(snapshot) {
+  printToDom(snapshot.val());
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
 
 
 //----checks if pause player is checked. if it is it pause the player.
@@ -116,21 +99,16 @@ function addComment(){
   ///// human readable time ///
   var today = new Date();
 
-  var time = today.getHours() + ":"
-    + today.getMinutes() + ":"
-    + today.getSeconds();
-
   var date = today.getDate()+' / '
     +(today.getMonth()+1)+' / '
     +today.getFullYear();
 
   //// create new object from comment ////
-  var newSubmit = new commentCreator(date, time);
-  commentMaster.push(newSubmit);
+  var newSubmit = new commentCreator(date);
 
   /// push comment to db ////
   dbRef.push(newSubmit);
-  clearComments();
+  document.getElementById('add-comment').value = "";
 }//end adComment
 
 function videoTimeReadOut (){
@@ -146,18 +124,13 @@ function videoTimeReadOut (){
   }
   var readOut = min + ":" + sec;
 
-  console.log(min);
-  console.log(sec);
-  console.log(currentFrame);
-  console.log(readOut);
   return readOut; //display the video durration
 }
 
 
 // -- creates new object with parameters.
-function commentCreator(date, time) {
+function commentCreator(date) {
   this.date = date;
-  this.time = time;
   this.name = document.getElementById("name").value;
   this.markerAt = videoTimeReadOut();
   this.second = video.currentTime;
@@ -167,9 +140,10 @@ function commentCreator(date, time) {
 /// clears list then re-writes comment list ///
 function printToDom (e){
   var printMe = Object.values(e);
+  let commentMenu = document.getElementById("comment-list");
 
   //---- clear ----//
-  document.getElementById("comment-list").innerHTML = "";
+  commentMenu.innerHTML = "";
 
   //----- write ----//
   for (var i = 0; i < printMe.length; i++){
@@ -184,16 +158,6 @@ function printToDom (e){
 }// End print to DOM
 
 // ---- shuttle functions --- //
-function shuttleBackOne(){
-  video.currentTime = video.currentTime - .1;
-  pausePlayer();
-}
-
-function shuttleBackFive(){
-  video.currentTime = video.currentTime - .5;
-  pausePlayer();
-}
-
 function shuttlPlay(){
   if(video.paused){
     video.play();
@@ -202,42 +166,13 @@ function shuttlPlay(){
   }
 }
 
-// playing video with spacebar
-document.onkeypress = function(e){
-  if(e.keyCode == 32 && e.target.nodeName.toUpperCase() === "BODY"){
-    e.preventDefault();
-    video.paused ? video.play() : video.pause();
-  }
-};
-
 function shuttlPause(){
   video.pause();
-}
-
-function shuttleForwardOne(){
-  video.currentTime = video.currentTime + .1;
-  pausePlayer();
-}
-
-function shuttleForwardFive(){
-  video.currentTime = video.currentTime + .5;
-  pausePlayer();
 }
 
 //---- allows comments to jump to time in movie---//
 function goTo(e){
   video.currentTime = e;
   pausePlayer()
-}
-
-/// clears the users comment box ///
-function clearComments(){
-  document.getElementById('add-comment').value = "";
-}
-
-/// deletes  all childern of dbRef node //
-function killAllComments (){
-  console.log("killed comments");
-  dbRef.set(null);
 }
 
