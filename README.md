@@ -14,3 +14,8 @@ install with:
 deploy with:
 `make deploy`
 
+Working Link
+--------------
+https://video-commander.firebaseapp.com/?
+
+simply past an url to a video file after the '?'. 
