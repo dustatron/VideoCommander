@@ -1,31 +1,42 @@
+// VIEW
+const $video = document.getElementById("video1");
+
 const CommentsView = function(comments) {
   let render = function() {
     let $comments = document.getElementById("comment-list");
+    let $count = document.getElementById("comment-count");
+    let counter = 1;
+    let commentAt = comments.second;
+
 
     //---- clear ----//
     $comments.innerHTML = "";
 
-    //----- write ----//
+      //----- write ----//
     comments.forEach(function(comment) {
       $comments.innerHTML +=
-        "<div class='comment-element text-left'>"
+        "<div class='comment-element text-left' onclick ='goTo("+comment.second+")'>"
         + '<span class="comment-name">' + comment.name + '</span> : '
         + '<span class="marker-time">' + comment.markerAt + '</span> : '
         + '<span class="date-of-commnet">' + comment.date + '</span> <br/>'
-        + '<span class="text-of-commnet">' + comment.comment + '</span>';
+        + '<span class="text-of-commnet">' + comment.comment + '</span> <br/>'
+        + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
+        $count.innerHTML = counter ++;
     });
   };
 
   comments.onUpdate(function() {
     render();
   });
+
 };
+
 
 const NewCommentView = function(comments) {
   let $submitButton = document.getElementById("submit");
 
+
   $submitButton.addEventListener("click", function() {
-    let $video = document.getElementById("video1");
     let today = new Date();
     let date = today.getDate() + ' / ' + (today.getMonth()+1) + ' / ' + today.getFullYear();
     let name = document.getElementById("name").value;
@@ -59,24 +70,24 @@ const NewCommentView = function(comments) {
 }
 
 const Comments = function(scope) {
-  this.forEach = function(callback) {
-    comments.forEach(callback);
+  this.forEach = function(comment) {
+    comments.forEach(comment);
   };
 
   this.onUpdate = function(callback) {
     updateCallbacks.push(callback);
-  }
+  };
 
   this.push = function(comment) {
     commentsSubscription.push(comment);
-  }
-
-  // private
+  };
 
   let comments = [];
   let updateCallbacks = [];
   let commentsSubscription = null;
   const that = this;
+
+    // private
 
   wireUpFirebase = function() {
     const config = {
@@ -102,7 +113,7 @@ const Comments = function(scope) {
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     });
-  }
+  };
 
   wireUpFirebase();
 };
@@ -118,3 +129,6 @@ function boot() {
 
 boot();
 
+function goTo(seconds) {
+  $video.currentTime = seconds;
+}
