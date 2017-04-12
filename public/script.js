@@ -1,7 +1,7 @@
 // video player global
 const $video = document.getElementById("video1");
 
-///// writes out comments
+///// writes out comments and page title
 const CommentsView = function(comments) {
   let render = function() {
     let $comments = document.getElementById("comment-list");
@@ -30,6 +30,7 @@ const CommentsView = function(comments) {
     });
   };
 
+  console.log(comments.getCommentOject());
   comments.onUpdate(function() {
     render();
   });
@@ -116,6 +117,15 @@ const Comments = function(scope) {
     commentsSubscription.push(comment);
   };
 
+  this.deleteComment = function(key) {
+    commentsSubscription.remove(key);
+  }
+
+  this.getCommentOject = function() {
+    return this.commentObject;
+  }
+
+  //// title
   this.savedTitle = function() {
     return this.returnTitle.title;
 
@@ -126,18 +136,21 @@ const Comments = function(scope) {
     this.newTitle.set(videoTitleObject);
   }
 
+  ////Comment variables
   let comments = [];
   let updateCallbacks = [];
   let commentsSubscription = null;
+  let commentObject;
+
+  ////page title variables
   let videoTitleObject = {
-    title: "Default Title"
+    title: "Title Not Set Yet"
     };
   let newTitle = null;
   let returnTitle;
   const that = this;
 
-    // private
-
+  ///// private
   wireUpFirebase = function() {
     const config = {
       apiKey: "AIzaSyDxdKOEazxOtcyJNqo4T4RpVzRvHEnh62E",
@@ -151,6 +164,7 @@ const Comments = function(scope) {
     firebase.initializeApp(config);
     const safeScope = scope.replace(/[\/\.\#\$\[\]]/g, "-");
     commentsSubscription = firebase.database().ref().child(safeScope+'/'+'comments');
+
     const videoTitleRef = firebase.database().ref().child(safeScope+'/'+'video-name');
     that.newTitle = videoTitleRef;
     videoTitleRef.on("value", function(snapshot){
@@ -160,6 +174,7 @@ const Comments = function(scope) {
     commentsSubscription.on("value", function(snapshot) {
       const snapshotComments = snapshot.val();
       if(snapshotComments) {
+        that.commentObject = snapshotComments;
         comments = Object.values(snapshotComments);
         updateCallbacks.forEach(function(callback) {
           callback();
