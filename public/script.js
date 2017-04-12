@@ -1,6 +1,7 @@
-// VIEW
+// video player global
 const $video = document.getElementById("video1");
 
+///// writes out comments
 const CommentsView = function(comments) {
   let render = function() {
     let $comments = document.getElementById("comment-list");
@@ -15,7 +16,7 @@ const CommentsView = function(comments) {
       //----- write ----//
     comments.forEach(function(comment) {
       $comments.innerHTML +=
-        "<div class='comment-element text-left' onclick ='goTo("+comment.second+")'>"
+        "<div class='comment-element text-left' onclick ='control.go("+comment.second+")'>"
         + '<span class="comment-name">' + comment.name + '</span> : '
         + '<span class="marker-time">' + comment.markerAt + '</span> : '
         + '<span class="date-of-commnet">' + comment.date + '</span> <br/>'
@@ -31,10 +32,9 @@ const CommentsView = function(comments) {
 
 };
 
-
-const NewCommentView = function(comments) {
+////// pushes comments database
+const NewCommentView = function(comments, control) {
   let $submitButton = document.getElementById("submit");
-
 
   $submitButton.addEventListener("click", function() {
     let today = new Date();
@@ -53,6 +53,7 @@ const NewCommentView = function(comments) {
     };
 
     comments.push(comment);
+    control.clear();
   });
 
   function formatSeconds(seconds) {
@@ -69,6 +70,19 @@ const NewCommentView = function(comments) {
   }
 }
 
+///// Control
+const Control = function(comments) {
+  this.clear = function() {
+    document.getElementById('add-comment').value = " ";
+  };
+
+  this.go = function(time) {
+    $video.currentTime = time;
+  };
+
+};
+
+////// talking to the database
 const Comments = function(scope) {
   this.forEach = function(comment) {
     comments.forEach(comment);
@@ -118,17 +132,15 @@ const Comments = function(scope) {
   wireUpFirebase();
 };
 
+ /////// booting
 function boot() {
   const videoUrl = window.location.search.substring(1);
   document.getElementById("video1").src = videoUrl;
 
   const comments = new Comments(videoUrl);
-  const commentsView = new CommentsView(comments);
-  const newCommentView = new NewCommentView(comments);
+  control = new Control(comments);
+  const commentsView = new CommentsView(comments,control);
+  const newCommentView = new NewCommentView(comments, control);
 }
 
 boot();
-
-function goTo(seconds) {
-  $video.currentTime = seconds;
-}
