@@ -291,6 +291,11 @@ video{
 
 }
 
+.check-box{
+  float: right;
+  margin-right: 10px;
+}
+
 .delete-commnet-box{
   float: right;
   color: #5C5D5F;
@@ -313,6 +318,8 @@ video{
   margin-top: 5px;
   cursor: pointer;
 }
+
+
 
 #delete-comments{
 	float:right;
