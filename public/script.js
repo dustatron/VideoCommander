@@ -21,7 +21,7 @@ const CommentsView = function(comments) {
         "<div class='comment-element text-left' onclick ='control.go("+comment.second+")'>"
         + '<span class="comment-name">' + comment.name + '</span> : '
         + '<span class="marker-time">' + comment.markerAt + '</span> : '
-        + '<span class="date-of-commnet">' + comment.date + '</span> <br/>'
+        + '<span class="date-of-commnet">' + comment.date + '</span>'
         + '<span class="text-of-commnet">' + comment.comment + '</span> <br/>'
         + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
         $count.innerHTML = counter ++;
@@ -39,6 +39,11 @@ const CommentsView = function(comments) {
 const NewCommentView = function(comments, control) {
   let $submitButton = document.getElementById("submit");
   let $videoTitle = document.getElementById("video-title");
+  let $enderKey = document.onkeypress = function(evt){
+    if (evt.keyCode == 13  && evt.target.nodeName.toUpperCase() != "BODY") {
+      submitComment();
+    }
+  };
 
   $videoTitle.addEventListener("blur", function() {
     let newTitle = $videoTitle.innerHTML
@@ -46,24 +51,30 @@ const NewCommentView = function(comments, control) {
   });
 
   $submitButton.addEventListener("click", function() {
-    let today = new Date();
-    let date = today.getDate() + ' / ' + (today.getMonth()+1) + ' / ' + today.getFullYear();
-    let name = document.getElementById("name").value;
-    let markerAt = formatSeconds($video.currentTime);
-    let second = $video.currentTime;
-    let commentText = document.getElementById("add-comment").value;
+      submitComment();
+    });
 
-    let comment = {
-      date: date,
-      name: name,
-      markerAt: markerAt,
-      second: second,
-      comment: commentText,
-    };
+      let submitComment = function() {
+        let today = new Date();
+        let date = today.getDate() + ' / ' + (today.getMonth()+1) + ' / ' + today.getFullYear();
+        let name = document.getElementById("name").value;
+        let markerAt = formatSeconds($video.currentTime);
+        let second = $video.currentTime;
+        let commentText = document.getElementById("add-comment").value;
+
+        let comment = {
+          date: date,
+          name: name,
+          markerAt: markerAt,
+          second: second,
+          comment: commentText,
+        };
 
     comments.push(comment);
     control.clear();
-  });
+    };
+
+
 
   function formatSeconds(seconds) {
     let min = Math.floor(seconds / 60);
