@@ -6,8 +6,10 @@ const CommentsView = function(comments) {
   let render = function() {
     let $comments = document.getElementById("comment-list");
     let $count = document.getElementById("comment-count");
+    let $title = document.getElementById("video-title");
     let counter = 1;
     let commentAt = comments.second;
+    let $videoTitle = document.getElementById("video-title");
 
 
     //---- clear ----//
@@ -23,18 +25,25 @@ const CommentsView = function(comments) {
         + '<span class="text-of-commnet">' + comment.comment + '</span> <br/>'
         + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
         $count.innerHTML = counter ++;
+
+        $videoTitle.innerHTML = comments.savedTitle();
     });
   };
 
   comments.onUpdate(function() {
     render();
   });
-
 };
 
 ////// pushes comments database
 const NewCommentView = function(comments, control) {
   let $submitButton = document.getElementById("submit");
+  let $videoTitle = document.getElementById("video-title");
+
+  $videoTitle.addEventListener("blur", function() {
+    let newTitle = $videoTitle.innerHTML
+    comments.updateTitle(newTitle);
+  });
 
   $submitButton.addEventListener("click", function() {
     let today = new Date();
@@ -96,9 +105,24 @@ const Comments = function(scope) {
     commentsSubscription.push(comment);
   };
 
+  this.savedTitle = function() {
+    return this.returnTitle.title;
+
+  }
+
+  this.updateTitle = function(title) {
+    videoTitleObject.title = title;
+    this.newTitle.set(videoTitleObject);
+  }
+
   let comments = [];
   let updateCallbacks = [];
   let commentsSubscription = null;
+  let videoTitleObject = {
+    title: "Default Title"
+    };
+  let newTitle = null;
+  let returnTitle;
   const that = this;
 
     // private
@@ -112,10 +136,16 @@ const Comments = function(scope) {
       storageBucket: "video-commander.appspot.com",
       messagingSenderId: "643393373733"
     };
-    firebase.initializeApp(config);
 
+    firebase.initializeApp(config);
     const safeScope = scope.replace(/[\/\.\#\$\[\]]/g, "-");
-    commentsSubscription = firebase.database().ref().child(safeScope);
+    commentsSubscription = firebase.database().ref().child(safeScope+'/'+'comments');
+    const videoTitleRef = firebase.database().ref().child(safeScope+'/'+'video-name');
+    that.newTitle = videoTitleRef;
+    videoTitleRef.on("value", function(snapshot){
+      that.returnTitle = snapshot.val();
+    });
+
     commentsSubscription.on("value", function(snapshot) {
       const snapshotComments = snapshot.val();
       if(snapshotComments) {
@@ -141,6 +171,6 @@ function boot() {
   control = new Control(comments);
   const commentsView = new CommentsView(comments,control);
   const newCommentView = new NewCommentView(comments, control);
-}
+};
 
 boot();
