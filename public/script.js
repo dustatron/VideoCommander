@@ -1,5 +1,6 @@
 // video player global
 const $video = document.getElementById("video1");
+//var commentObject = null;
 
 ///// writes out comments and page title
 const CommentsView = function(comments) {
@@ -14,7 +15,7 @@ const CommentsView = function(comments) {
 
     //---- clear ----//
     $comments.innerHTML = "";
-
+    console.log(comments.getCommentOject());
       //----- write ----//
     comments.forEach(function(comment) {
       $comments.innerHTML +=
@@ -30,7 +31,6 @@ const CommentsView = function(comments) {
     });
   };
 
-  console.log(comments.getCommentOject());
   comments.onUpdate(function() {
     render();
   });
@@ -122,7 +122,7 @@ const Comments = function(scope) {
   }
 
   this.getCommentOject = function() {
-    return this.commentObject;
+    return commentObject;
   }
 
   //// title
@@ -140,7 +140,7 @@ const Comments = function(scope) {
   let comments = [];
   let updateCallbacks = [];
   let commentsSubscription = null;
-  let commentObject;
+  let commentObject = [];
 
   ////page title variables
   let videoTitleObject = {
@@ -165,6 +165,7 @@ const Comments = function(scope) {
     const safeScope = scope.replace(/[\/\.\#\$\[\]]/g, "-");
     commentsSubscription = firebase.database().ref().child(safeScope+'/'+'comments');
 
+      //// Custom Video Title
     const videoTitleRef = firebase.database().ref().child(safeScope+'/'+'video-name');
     that.newTitle = videoTitleRef;
     videoTitleRef.on("value", function(snapshot){
@@ -173,8 +174,8 @@ const Comments = function(scope) {
 
     commentsSubscription.on("value", function(snapshot) {
       const snapshotComments = snapshot.val();
+      commentObject = snapshotComments;
       if(snapshotComments) {
-        that.commentObject = snapshotComments;
         comments = Object.values(snapshotComments);
         updateCallbacks.forEach(function(callback) {
           callback();
