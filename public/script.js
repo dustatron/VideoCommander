@@ -23,6 +23,7 @@ const CommentsView = function(comments) {
         + '<span class="comment-name">' + comment.name + '</span> : '
         + '<span class="marker-time">' + comment.markerAt + '</span> : '
         + '<span class="date-of-commnet">' + comment.date + '</span>'
+        + '<input type="checkbox" class="check-task" name="completed" '+comment.task+'> <br />'
         + '<span class="text-of-commnet">' + comment.comment + '</span> <br/>'
         + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
         $count.innerHTML = counter ++;
@@ -62,6 +63,7 @@ const NewCommentView = function(comments, control) {
         let markerAt = formatSeconds($video.currentTime);
         let second = $video.currentTime;
         let commentText = document.getElementById("add-comment").value;
+        let task = "";
 
         let comment = {
           date: date,
@@ -69,6 +71,7 @@ const NewCommentView = function(comments, control) {
           markerAt: markerAt,
           second: second,
           comment: commentText,
+          task: task,
         };
 
     comments.push(comment);

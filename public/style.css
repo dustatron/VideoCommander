@@ -126,129 +126,7 @@ video{
 	transition: all 0.2s ease;
 }
 
-
-#controls span:hover {
-	background: white;
-	box-shadow:0px 4px gray;
-}
-
-#controls span:active{
-	box-shadow: 0px 0px #6b54d3;
-	top:4px;
-}
-
-#time-controls{
-	display: block;
-	float: left;
-	left: 10%;
-	position: relative;
-}
-
-#currentTimeField{
-	padding: 1px;
-	margin-right: 20px;
-	border-radius: 0px;
-	background-color: transparent;
-  border: 0px solid;
-	color: white;
-	width:6%;
-
-}
-/*
-////////////////////////////////////
-/////// scrub start ////////////////
-///////////////////////////////////
-*/
-
-#scrubSlider {
-  -webkit-appearance: none;
-  margin: 10px 0;
-  width: 70%;
-	background: rgba(0, 0, 0, 0.2);
-}
-#scrubSlider:focus {
-  outline: none;
-}
-#scrubSlider::-webkit-slider-runnable-track {
-  width: 60%;
-  height: 15px;
-  cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 1px 1px 1px #50555C;
-  background: #50555C;
-  border-radius: 14px;
-  border: 0px solid #000000;
-}
-#scrubSlider::-webkit-slider-thumb {
-  box-shadow: 0px 0px 0px #000000;
-  border: 0px solid #000000;
-  height: 18px;
-  width: 40px;
-  border-radius: 12px;
-  background: #529DE1;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: 0.5px;
-}
-#scrubSlider:focus::-webkit-slider-runnable-track {
-  background: #50555C;
-}
-#scrubSlider::-moz-range-track {
-  width: 100%;
-  height: 19px;
-  cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 1px 1px 1px #50555C;
-  background: #50555C;
-  border-radius: 14px;
-  border: 0px solid #000000;
-}
-#scrubSlider::-moz-range-thumb {
-  box-shadow: 0px 0px 0px #000000;
-  border: 0px solid #000000;
-  height: 18px;
-  width: 40px;
-  border-radius: 12px;
-  background: #529DE1;
-  cursor: pointer;
-}
-#scrubSlider::-ms-track {
-  width: 100%;
-  height: 19px;
-  cursor: pointer;
-  animate: 0.2s;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-#scrubSlider::-ms-fill-lower {
-  background: #50555C;
-  border: 0px solid #000000;
-  border-radius: 28px;
-  box-shadow: 1px 1px 1px #50555C;
-}
-#scrubSlider::-ms-fill-upper {
-  background: #50555C;
-  border: 0px solid #000000;
-  border-radius: 28px;
-  box-shadow: 1px 1px 1px #50555C;
-}
-#scrubSlider::-ms-thumb {
-  box-shadow: 0px 0px 0px #000000;
-  border: 0px solid #000000;
-  height: 18px;
-  width: 40px;
-  border-radius: 12px;
-  background: #529DE1;
-  cursor: pointer;
-}
-#scrubSlider:focus::-ms-fill-lower {
-  background: #50555C;
-}
-#scrubSlider:focus::-ms-fill-upper {
-  background: #50555C;
-}
-
+/*  Comment row */
 .comment-row{
 	//border: 1px solid red;
   height: 100%;
@@ -257,15 +135,13 @@ video{
   padding-right: 0 !important;
 }
 
-
-
 .comment-row::-webkit-scrollbar {
   /* This is the magic bit */
   display: none;
 }
 
 .comment-element{
-	//border: 1px solid red;
+	border: .03px solid #2a2a2a;
 
 	font-weight: lightbold;
 	color: white;
@@ -291,9 +167,10 @@ video{
 
 }
 
-.check-box{
+.check-task{
   float: right;
-  margin-right: 10px;
+  margin-right: 15px;
+  margin-top: 15px;
 }
 
 .delete-commnet-box{
@@ -302,7 +179,7 @@ video{
 	font-size: 13px;
 	font-weight: bold;
 	letter-spacing: -0.5px;
-  margin-right: 10px;
+  margin-right: 15px;
   margin-bottom: 20px;
   cursor: pointer;
 }
