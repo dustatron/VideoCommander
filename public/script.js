@@ -11,25 +11,42 @@ const CommentsView = function(comments) {
     let counter = 1;
     let commentAt = comments.second;
     let $videoTitle = document.getElementById("video-title");
+    let batch = comments.getCommentOject();
 
 
     //---- clear ----//
-    $comments.innerHTML = "";
-    console.log(comments.getCommentOject());
-      //----- write ----//
-    comments.forEach(function(comment) {
-      $comments.innerHTML +=
-        "<div class='comment-element text-left' onclick ='control.go("+comment.second+")'>"
-        + '<span class="comment-name">' + comment.name + '</span> : '
-        + '<span class="marker-time">' + comment.markerAt + '</span> : '
-        + '<span class="date-of-commnet">' + comment.date + '</span>'
-        + '<input type="checkbox" class="check-task" name="completed" '+comment.task+'> <br />'
-        + '<span class="text-of-commnet">' + comment.comment + '</span> <br/>'
-        + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
-        $count.innerHTML = counter ++;
+    $comments.innerHTML = " ";
 
-        $videoTitle.innerHTML = comments.savedTitle();
-    });
+    for(var key in batch) {
+        let commentBox = batch[key];
+            $comments.innerHTML +=
+              "<div class='comment-element text-left' onclick ='control.go("+commentBox.second+")'>"
+              + '<span class="comment-name">' + commentBox.name + '</span> : '
+              + '<span class="marker-time">' + commentBox.markerAt + '</span> : '
+              + '<span class="date-of-commnet">' + commentBox.date + '</span>'
+              + '<input type="checkbox" class="check-task" name="completed" '+commentBox.task+'> <br />'
+              + '<span class="text-of-commnet">' + commentBox.comment + '</span> <br/>'
+              + '<span class="text-of-commnet">' + key+ '</span> <br/>'
+              + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
+              $count.innerHTML = counter ++;
+              $videoTitle.innerHTML = comments.savedTitle();
+
+    } //end of for in loop
+
+      //----- write ----//
+    // comments.forEach(function(comment) {
+    //   $comments.innerHTML +=
+    //     "<div class='comment-element text-left' onclick ='control.go("+comment.second+")'>"
+    //     + '<span class="comment-name">' + comment.name + '</span> : '
+    //     + '<span class="marker-time">' + comment.markerAt + '</span> : '
+    //     + '<span class="date-of-commnet">' + comment.date + '</span>'
+    //     + '<input type="checkbox" class="check-task" name="completed" '+comment.task+'> <br />'
+    //     + '<span class="text-of-commnet">' + comment.comment + '</span> <br/>'
+    //     + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
+    //     $count.innerHTML = counter ++;
+    //
+    //     $videoTitle.innerHTML = comments.savedTitle();
+    // });
   };
 
   comments.onUpdate(function() {
@@ -73,9 +90,14 @@ const NewCommentView = function(comments, control) {
           comment: commentText,
           task: task,
         };
+        let $name = document.getElementById("name").value;
+        if ($name == ""){
+          alert("Please enter your name.");
+        }else{
+          comments.push(comment);
+          control.clear();
+        }
 
-    comments.push(comment);
-    control.clear();
     };
 
 
