@@ -20,16 +20,18 @@ const CommentsView = function(comments) {
     for(var key in batch) {
         let commentBox = batch[key];
             $comments.innerHTML +=
-              "<div class='comment-element text-left' onclick ='control.go("+commentBox.second+")'>"
+              "<div  class='comment-element text-left' onclick ='control.go("+commentBox.second+")'>"
               + '<span class="comment-name">' + commentBox.name + '</span> : '
               + '<span class="marker-time">' + commentBox.markerAt + '</span> : '
               + '<span class="date-of-commnet">' + commentBox.date + '</span>'
               + '<input type="checkbox" class="check-task" name="completed" '+commentBox.task+'> <br />'
               + '<span class="text-of-commnet">' + commentBox.comment + '</span> <br/>'
               + '<span class="text-of-commnet">' + key+ '</span> <br/>'
-              + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
+              + '<span id="'+key+'" class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
               $count.innerHTML = counter ++;
               $videoTitle.innerHTML = comments.savedTitle();
+              control.writeToKeyArray(key);
+              control.makeButtons();
 
     } //end of for in loop
 
@@ -58,6 +60,7 @@ const CommentsView = function(comments) {
 const NewCommentView = function(comments, control) {
   let $submitButton = document.getElementById("submit");
   let $videoTitle = document.getElementById("video-title");
+
   let $enderKey = document.onkeypress = function(evt){
     if (evt.keyCode == 13  && evt.target.nodeName.toUpperCase() != "BODY") {
       submitComment();
@@ -97,9 +100,7 @@ const NewCommentView = function(comments, control) {
           comments.push(comment);
           control.clear();
         }
-
     };
-
 
 
   function formatSeconds(seconds) {
@@ -118,6 +119,8 @@ const NewCommentView = function(comments, control) {
 
 ///// Control
 const Control = function(comments) {
+  let keyArray = []
+
   this.clear = function() {
     document.getElementById('add-comment').value = " ";
   };
@@ -126,6 +129,21 @@ const Control = function(comments) {
     $video.currentTime = time;
   };
 
+  this.writeToKeyArray = function (element){
+    keyArray.push(element );
+  }
+
+  this.makeButtons = function(){
+    keyArray.forEach(function(callback){
+      let key = callback
+      let commentBox = document.getElementById(callback);
+      commentBox.addEventListener("click", function() {
+        comments.deleteComment(key);
+        console.log(key);
+      });
+    });
+  }
+  console.log(keyArray);
 };
 
 ////// talking to the database
