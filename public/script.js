@@ -139,7 +139,6 @@ const Control = function(comments) {
       let commentBox = document.getElementById(callback);
       commentBox.addEventListener("click", function() {
         comments.deleteComment(key);
-        console.log(key);
       });
     });
   }
@@ -161,12 +160,14 @@ const Comments = function(scope) {
   };
 
   this.deleteComment = function(key) {
-    commentsSubscription.remove(key);
+    let string = safeScope +'/'+'comments'+'/'+key;
+    commentRef.child(string).remove();
+    console.log(string);
   }
 
   this.getCommentOject = function() {
     return commentObject;
-  }
+  };
 
   //// title
   this.savedTitle = function() {
@@ -184,6 +185,8 @@ const Comments = function(scope) {
   let updateCallbacks = [];
   let commentsSubscription = null;
   let commentObject = [];
+  let commentRef;
+  let safeScope;
 
   ////page title variables
   let videoTitleObject = {
@@ -205,8 +208,9 @@ const Comments = function(scope) {
     };
 
     firebase.initializeApp(config);
-    const safeScope = scope.replace(/[\/\.\#\$\[\]]/g, "-");
-    commentsSubscription = firebase.database().ref().child(safeScope+'/'+'comments');
+    safeScope = scope.replace(/[\/\.\#\$\[\]]/g, "-");
+    commentRef = firebase.database().ref();
+    commentsSubscription = commentRef.child(safeScope+'/'+'comments');
 
       //// Custom Video Title
     const videoTitleRef = firebase.database().ref().child(safeScope+'/'+'video-name');
