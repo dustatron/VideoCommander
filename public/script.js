@@ -25,6 +25,7 @@ const CommentsView = function(comments) {
               + '<span class="comment-name">' + commentBox.name + '</span> : '
               + '<span class="marker-time">' + commentBox.markerAt + '</span> : '
               + '<span class="date-of-commnet">' + commentBox.date + '</span>'
+
               + '<input type="checkbox" class="check-task" name="completed" '+commentBox.task+'> <br />'
               + '<span class="text-of-commnet">' + commentBox.comment + '</span> <br/>'
               + '<span class="delete-commnet-box" id="'+key+'"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
