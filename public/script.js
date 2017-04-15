@@ -21,34 +21,20 @@ const CommentsView = function(comments) {
         let commentBox = batch[key];
             $comments.innerHTML +=
               "<div  class='comment-element text-left' onclick ='control.go("+commentBox.second+")'>"
+              + '<span class="comment-number">' + counter + '</span> : '
               + '<span class="comment-name">' + commentBox.name + '</span> : '
               + '<span class="marker-time">' + commentBox.markerAt + '</span> : '
               + '<span class="date-of-commnet">' + commentBox.date + '</span>'
               + '<input type="checkbox" class="check-task" name="completed" '+commentBox.task+'> <br />'
               + '<span class="text-of-commnet">' + commentBox.comment + '</span> <br/>'
-              + '<span class="text-of-commnet">' + key+ '</span> <br/>'
-              + '<span id="'+key+'" class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
+              + '<span class="delete-commnet-box" id="'+key+'"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
               $count.innerHTML = counter ++;
               $videoTitle.innerHTML = comments.savedTitle();
-              control.writeToKeyArray(key);
-              control.makeButtons();
+              control.cycle();
+              //control.push(key);
+              // control.makeButtons();
 
     } //end of for in loop
-
-      //----- write ----//
-    // comments.forEach(function(comment) {
-    //   $comments.innerHTML +=
-    //     "<div class='comment-element text-left' onclick ='control.go("+comment.second+")'>"
-    //     + '<span class="comment-name">' + comment.name + '</span> : '
-    //     + '<span class="marker-time">' + comment.markerAt + '</span> : '
-    //     + '<span class="date-of-commnet">' + comment.date + '</span>'
-    //     + '<input type="checkbox" class="check-task" name="completed" '+comment.task+'> <br />'
-    //     + '<span class="text-of-commnet">' + comment.comment + '</span> <br/>'
-    //     + '<span class="delete-commnet-box"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
-    //     $count.innerHTML = counter ++;
-    //
-    //     $videoTitle.innerHTML = comments.savedTitle();
-    // });
   };
 
   comments.onUpdate(function() {
@@ -61,11 +47,16 @@ const NewCommentView = function(comments, control) {
   let $submitButton = document.getElementById("submit");
   let $videoTitle = document.getElementById("video-title");
 
-  let $enderKey = document.onkeypress = function(evt){
+  let $enterKey = document.onkeypress = function(evt){
     if (evt.keyCode == 13  && evt.target.nodeName.toUpperCase() != "BODY") {
       submitComment();
     }
   };
+
+  let $formSelectPause = document.getElementById("add-comment");
+  $formSelectPause.addEventListener("focus", function(callback){
+      $video.pause();
+  }, true);
 
   $videoTitle.addEventListener("blur", function() {
     let newTitle = $videoTitle.innerHTML
@@ -129,20 +120,31 @@ const Control = function(comments) {
     $video.currentTime = time;
   };
 
-  this.writeToKeyArray = function (element){
-    keyArray.push(element );
+  this.push = function(element){
+    keyArray.push(element);
   }
 
-  this.makeButtons = function(){
-    keyArray.forEach(function(callback){
-      let key = callback
-      let commentBox = document.getElementById(callback);
-      commentBox.addEventListener("click", function() {
-        comments.deleteComment(key);
-      });
-    });
+  this.cycle = function() {
+    let classGroup = document.getElementsByClassName("delete-commnet-box");
+    for (var key in classGroup) {
+      console.log(classGroup[key]);
+    }
   }
-  console.log(keyArray);
+
+  // this.makeButtons = function(){
+  //   keyArray.forEach(function(callback){
+  //     let key = callback
+  //     let commentBox = document.getElementById(callback);
+  //     commentBox.addEventListener("click", function() {
+  //       console.log("click "+ key);
+  //       //comments.deleteComment(key);
+  //
+  //       //let keyIndex = keyArray.indexOf(key);
+  //       //keyArray.splice(keyIndex, 1);
+  //
+  //     });
+  //   });
+  // }
 };
 
 ////// talking to the database
@@ -162,7 +164,6 @@ const Comments = function(scope) {
   this.deleteComment = function(key) {
     let string = safeScope +'/'+'comments'+'/'+key;
     commentRef.child(string).remove();
-    console.log(string);
   }
 
   this.getCommentOject = function() {
