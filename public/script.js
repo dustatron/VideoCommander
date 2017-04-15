@@ -30,11 +30,12 @@ const CommentsView = function(comments) {
               + '<span class="delete-commnet-box" id="'+key+'"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
               $count.innerHTML = counter ++;
               $videoTitle.innerHTML = comments.savedTitle();
-              control.cycle();
+
               //control.push(key);
               // control.makeButtons();
 
     } //end of for in loop
+    control.cycle();
   };
 
   comments.onUpdate(function() {
@@ -125,10 +126,14 @@ const Control = function(comments) {
   }
 
   this.cycle = function() {
-    let classGroup = document.getElementsByClassName("delete-commnet-box");
-    for (var key in classGroup) {
-      console.log(classGroup[key]);
-    }
+    let classGroup = document.querySelectorAll(".delete-commnet-box");
+    classGroup.forEach(function (key){
+      let keyID = key.id;
+      key.addEventListener("click", function (){
+        comments.deleteComment(keyID);
+      })
+    })
+
   }
 
   // this.makeButtons = function(){
