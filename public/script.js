@@ -27,7 +27,7 @@ const CommentsView = function(comments) {
               + '<span class="marker-time">' + commentBox.markerAt + '</span> : '
               + '<span class="date-of-commnet">' + commentBox.date + '</span>'
 
-              + '<input type="checkbox" class="check-task" name="completed" '+commentBox.task+'> <br />'
+              + '<input type="checkbox" id="'+key+'-checkbox" value="'+key+'"class="task-done check-task" name="completed" '+commentBox.task+'><br />'
               + '<span class="text-of-commnet">' + commentBox.comment + '</span> <br/>'
               + '<span class="delete-commnet-box" id="'+key+'"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
               $count.innerHTML = counter ++;
@@ -35,6 +35,7 @@ const CommentsView = function(comments) {
 
     } //end of for in loop
     control.cycle();
+    control.checkBoxUpdate();
   };
 
   comments.onUpdate(function() {
@@ -108,7 +109,7 @@ const NewCommentView = function(comments, control) {
   }
 }
 
-///// Control
+///// Control !control
 const Control = function(comments) {
   let keyArray = []
 
@@ -120,13 +121,24 @@ const Control = function(comments) {
     $video.currentTime = time;
   };
 
-  this.push = function(element){
+  this.push = function(element) {
     keyArray.push(element);
   }
 
+  this.checkBoxUpdate = function(key) {
+    let taskDone = document.querySelectorAll(".task-done");
+      taskDone.forEach(function(key) {
+        key.addEventListener("change", function() {
+          let checkBoxValue = document.getElementById(key.id).checked;
+          comments.taskUpdate(checkBoxValue, key.value);
+        });
+      });
+
+  };
+
   this.cycle = function() {
     let classGroup = document.querySelectorAll(".delete-commnet-box");
-    classGroup.forEach(function (key){
+    classGroup.forEach(function(key) {
       let keyID = key.id;
       key.addEventListener("click", function (){
         comments.deleteComment(keyID);
@@ -162,13 +174,21 @@ const Comments = function(scope) {
   this.taskState = function(key) {
     let string = safeScope +'/'+'comments'+'/'+key;
     let checkBoxValue = commentObject[key].task;
-    console.log(checkBoxValue);
       if(checkBoxValue === ""){
-        console.log(key + " = is blank");
         return "comment-element";
       } else {
         return "comment-checked";
-      }
+      };
+  };
+
+  this.taskUpdate = function(value, key) {
+    let string = safeScope +'/'+'comments'+'/'+key+'/task';
+    let checkBoxValue = commentRef.child(string);
+    if(value){
+      checkBoxValue.set("checked");
+    } else {
+      checkBoxValue.set("");
+    };
   };
 
   //// title

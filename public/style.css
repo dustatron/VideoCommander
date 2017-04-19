@@ -60,6 +60,10 @@ video{
   margin-top: 10px;
 }
 
+#video-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
 
 #submit{
 	display: block;
@@ -169,6 +173,8 @@ input[type=radio]:checked ~ .comment-element {
   color: white;
   padding: 10px 5px 35px 20px;
 }
+
+
 .check-task {
   float: right;
   margin-right: 10px;
