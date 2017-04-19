@@ -1,125 +1,75 @@
+
 <head>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
-	
+
 	<!-- firebase google stuff -->
 	<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
 	<script src="https://use.fontawesome.com/22e00c6a2d.js"></script>
-
-<!-- 
-//////////////////////////////////////////////////////////////////
-/////////////       Nav Bar      ////////////////////////////////
-////////////////////////////////////////////////////////////////
--->
-
-<nav>
-    NAV BAR
-  </nav>
-
-		
-<!-- 
-////////////////////////////////////////////////////////////////
-/////////////    testing tools    /////////////////////////////
-//////////////////////////////////////////////////////////////
-
--->
-	<div  class="container-fluid"><!-- main body container -->
+<!-- //////// TOP BAR FOR NAMES AND COMMENT NUMBERS  ////// -->
+<div class="container-fluid top-bar">
 	<div class="row">
-		
-	
-</form><!-- end of selector -->
-</div><!-- end row -->
-	
+		<div id="video-title" class="col-lg-8  col-sm-6 text-center" contenteditable="true"> </div>
+    <div class="col-lg-4 col-sm-6 text-center"><h5><span id="comment-count">  </span>	COMMENTS
+		</div></h5></div>
 
-<!-- 
-///////////////////////////////////////////////////////////////////
-////////////////    main body container  /////////////////////////
-/////////////////////////////////////////////////////////////////
--->
-	
+	</div>
+
+</div>
+
+
+<!--////////////    MAIN BODY    //////////// -->
+<div  class="container-fluid"><!-- main body container -->
 <div id="main-box" class="row">
 
-<!-- 
-		////////////////////////////////////////////////////////////////////
-		///////             video player box and controls          /////////
-		///////////////////////////////////////////////////////////////////
--->		
-<div id="video-box" class="col-8 block-center"> <!-- video player / controls -->
-	
-	<!-- player -->
-	<div id="player"> 
-  <video id="video1" class="block-centert" controls></video>
-	</div><!-- end player --->
-	
-		<!-- 
-			/////////////////////////////////////////////////////////////			
-			////////////////////    name -- Submit /////////////////////
-			///////////////////////////////////////////////////////////
-		-->
-				<div class="row">
-					<div class="col-1">
-					</div>
-						<div class="col-10">
-							<input id="name" type="text" class="form-control" 
-									 placeholder="Name Here">
-						</div>				
-				</div>
-			<!-- comment box -->
-		<div class="row">
-			<div class="col-1">
-				</div>
-			  <div class="col-10">
-    			<textarea class="form-control" type="text" id="add-comment"
-										rows="4"  placeholder="Comment Here"></textarea>
-  			</div>
-			
-		</div>
-			<div class="row center-block">
-				<div class="col-1">
-				</div>
-				<div class="col-10 center-block">
-					<span id="submit" class="center-block">Submit</span>
-				</div>
+	<!--////////////    LEFT COLUMN  //////////// -->
+	<div id="video-box" class="col-lg-9 col-md-12 block-center yes-pad"> <!-- video player / controls -->
+		<!-- ////// VIDEO PLAYER ////// -->
+		<div id="player">
+	  <video id="video1" class="block-centert" controls></video>
+		</div><!-- end player --->
+
+		<!--////////////    COMMENT BOX    //////////// -->
+
+			<div class="row">
+				  <div class="col-12 no-pad">
+	    			<textarea class="form-control" type="text" id="add-comment"
+											rows="2" value=""  placeholder="Comment Here"></textarea>
+	  			</div>
 			</div>
+
+				<!--////////////    NAME BOX    //////////// -->
+							<div class="row">
+
+									<div class="col-5 no-pad">
+										<input id="name" type="text" class="form-control"
+												 placeholder="Name Here">
+									</div>
+
+									<div class="col-7 center-block no-pad">
+										<span id="submit" class="center-block">Submit</span>
+									</div>
+
+							</div>
+
 		</div> <!--- end video-box --->
-	
-	
-	
-	<!--
-	/////////////////////////////////////////////////////////////////
-	//////////////////    comments                   ///////////////
-	///////////////////////////////////////////////////////////////
-	-->
-	<div class="col-md-3 comment-row center-blcok text-center ">
-		<div class="row">
-			<div id="comment-header" class="col-12 block-center ">COMMENTS</div>
+	<!--////////////    RIGHT COLUMN   //////////// -->
+	<div id="comments-readout" class="col-lg-3 col-md-12 comment-row center-blcok text-center ">
+					<!--////////////    COMMENT LIST    //////////// -->
+			<div class="row">
+				<div id="comment-list" class="col-12 block-center "></div>
+			</div>
 		</div>
-		
-		<div class="row">
-			<div id="comment-list" class="col-12 block-center "></div>
-		</div>
-	</div>
-		
-	<div class="col-md-1"></div> 
-	
+
 	</div><!-- end class="row" -->
-	
-	
 	</div> <!-- container -->
 
-	<div class="container">
-		<div class="row"> 
-			<P id="test">  </P>
-			
-		</div><!-- test row -->
-	</div><!-- test containter -->
-	
-
-	
-	
+<!--////////////   JS SCRIPT   //////////// -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="script.js"></script>
