@@ -19,8 +19,9 @@ const CommentsView = function(comments) {
 
     for(var key in batch) {
         let commentBox = batch[key];
+        let returnedClass = comments.taskState(key);
             $comments.innerHTML +=
-              "<div  class='comment-element text-left' onclick ='control.go("+commentBox.second+")'>"
+              "<div  class='"+returnedClass+" text-left' onclick ='control.go("+commentBox.second+")'>"
               + '<span class="comment-number">' + counter + '</span> : '
               + '<span class="comment-name">' + commentBox.name + '</span> : '
               + '<span class="marker-time">' + commentBox.markerAt + '</span> : '
@@ -31,9 +32,6 @@ const CommentsView = function(comments) {
               + '<span class="delete-commnet-box" id="'+key+'"><i class="fa fa-trash-o" aria-hidden="true"></i></span>';
               $count.innerHTML = counter ++;
               $videoTitle.innerHTML = comments.savedTitle();
-
-              //control.push(key);
-              // control.makeButtons();
 
     } //end of for in loop
     control.cycle();
@@ -136,24 +134,9 @@ const Control = function(comments) {
     })
 
   }
-
-  // this.makeButtons = function(){
-  //   keyArray.forEach(function(callback){
-  //     let key = callback
-  //     let commentBox = document.getElementById(callback);
-  //     commentBox.addEventListener("click", function() {
-  //       console.log("click "+ key);
-  //       //comments.deleteComment(key);
-  //
-  //       //let keyIndex = keyArray.indexOf(key);
-  //       //keyArray.splice(keyIndex, 1);
-  //
-  //     });
-  //   });
-  // }
 };
 
-////// talking to the database
+////// talking to the database !Comments
 const Comments = function(scope) {
   this.forEach = function(comment) {
     comments.forEach(comment);
@@ -174,6 +157,18 @@ const Comments = function(scope) {
 
   this.getCommentOject = function() {
     return commentObject;
+  };
+
+  this.taskState = function(key) {
+    let string = safeScope +'/'+'comments'+'/'+key;
+    let checkBoxValue = commentObject[key].task;
+    console.log(checkBoxValue);
+      if(checkBoxValue === ""){
+        console.log(key + " = is blank");
+        return "comment-element";
+      } else {
+        return "comment-checked";
+      }
   };
 
   //// title

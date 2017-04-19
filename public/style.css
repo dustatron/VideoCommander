@@ -159,7 +159,15 @@ video{
 }
 
 input[type=radio]:checked ~ .comment-element {
-   background-color: red;
+   background-color: #222900;
+}
+
+.comment-checked{
+  background-color: #222900;
+  border: .03px solid #2a2a2a;
+  font-weight: lightbold;
+  color: white;
+  padding: 10px 5px 35px 20px;
 }
 .check-task {
   float: right;
