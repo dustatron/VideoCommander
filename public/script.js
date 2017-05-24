@@ -193,13 +193,25 @@ const Comments = function(scope) {
 
   //// title
   this.savedTitle = function() {
-    return this.returnTitle.title;
+    let title = this.returnTitle.title;
+    if(title == null) {
+      videoTitleObject.title = "Title Not Set";
+      this.newTitle.set(videoTitleObject);
+      return title;
+    } else {
+    return title;
+    }
 
   }
 
   this.updateTitle = function(title) {
-    videoTitleObject.title = title;
-    this.newTitle.set(videoTitleObject);
+    if(title !== null) {
+      videoTitleObject.title = title;
+      this.newTitle.set(videoTitleObject);
+    } else {
+      videoTitleObject.title = "Title Not Set";
+      this.newTitle.set(videoTitleObject);
+    }
   }
 
   ////Comment variables
