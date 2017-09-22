@@ -5,7 +5,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link href="style.css" rel="stylesheet" />
 <meta charset="UTF-8" />
-	<title>Video Commander</title>
+	<title>Video Commander_DEV</title>
 </head>
 
 <body>
@@ -33,35 +33,37 @@
 	<div id="video-box" class="col-lg-9 col-md-12 block-center yes-pad"> <!-- video player / controls -->
 		<!-- ////// VIDEO PLAYER ////// -->
 		<div id="player">
-	  <video id="video1" class="block-centert" controls></video>
+	  <video src="https://firebasestorage.googleapis.com/v0/b/video-commander.appspot.com/o/Mercurial%20Fast%20Forward_R17_AppleTV_Large.m4v?alt=media&token=54df1a66-e2c1-4e55-a916-faead37d5985" id="video1" class="block-centert" controls></video>
 		</div><!-- end player --->
 
 		<!--////////////    COMMENT BOX    //////////// -->
 
-			<div class="row">
-				  <div class="col-12 no-pad">
-	    			<textarea class="form-control" type="text" id="add-comment"
-											rows="2" value=""  placeholder="Comment Here"></textarea>
-	  			</div>
-			</div>
+
 
 				<!--////////////    NAME BOX    //////////// -->
-							<div class="row">
 
-									<div class="col-5 no-pad">
-										<input id="name" type="text" class="form-control"
-												 placeholder="Name Here">
-									</div>
-
-									<div class="col-7 center-block no-pad">
-										<span id="submit" class="center-block">Submit</span>
-									</div>
-
-							</div>
 
 		</div> <!--- end video-box --->
 	<!--////////////    RIGHT COLUMN   //////////// -->
 	<div id="comments-readout" class="col-lg-3 col-md-12 comment-row center-blcok text-center ">
+		<div class="row">
+
+						<div class="col-6 no-pad">
+							<input id="name" type="text" class="form-control"
+									 placeholder="Name Here">
+						</div>
+
+						<div class="col-6 center-block no-pad">
+							<span id="submit" class="center-block">Submit</span>
+						</div>
+
+		</div>
+		<div class="row">
+				<div class="col-12 no-pad">
+					<textarea class="form-control" type="text" id="add-comment"
+										rows="2" value=""  placeholder="Comment Here"></textarea>
+				</div>
+		</div>
 					<!--////////////    COMMENT LIST    //////////// -->
 			<div class="row">
 				<div id="comment-list" class="col-12 block-center "></div>
@@ -74,5 +76,6 @@
 <!--////////////   JS SCRIPT   //////////// -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="script.js"></script>
+<script src="js/main.js"></script>
+
 	</body>
